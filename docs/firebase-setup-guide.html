@@ -65,50 +65,57 @@ th{background:var(--bg);font-size:13px}
     <p class="muted">생성에 약 1분 걸립니다.</p>
   </div>
 
-  <h2>STEP 2 · flutterfire CLI로 자동 연결 (가장 쉬움)</h2>
+  <h2>STEP 2 · CLI 도구 설치</h2>
   <div class="step">
-    <h3><span class="num">2</span>로컬에서 명령 한 번</h3>
-    <p>아래 명령은 아래 작업을 자동으로 처리합니다:</p>
-    <ul>
-      <li>Android 앱 등록</li>
-      <li><code>android/app/google-services.json</code> 다운로드</li>
-      <li><code>lib/firebase_options.dart</code> 생성</li>
-      <li>Gradle 플러그인 자동 설정</li>
-    </ul>
-    <pre><code># 1) flutterfire CLI 설치 (한 번만)
+    <h3><span class="num">2</span>flutterfire + Firebase CLI 두 개 모두 필요</h3>
+    <p class="muted">flutterfire는 dart pub으로, Firebase CLI는 npm으로 설치 (이미 완료된 항목은 재실행 안전).</p>
+    <pre><code># flutterfire CLI (dart 패키지)
 dart pub global activate flutterfire_cli
 
-# 2) PATH에 pub bin 추가 (zshrc/bashrc에 영구 추가 권장)
-export PATH="$PATH":"$HOME/.pub-cache/bin"
+# Firebase CLI (npm 패키지) — flutterfire가 내부적으로 사용
+npm install -g firebase-tools
 
-# 3) 프로젝트 루트에서 실행
-cd /Users/dev/Documents/flutter/GongsuPick
-flutterfire configure</code></pre>
-    <p>대화형 입력:</p>
-    <ul>
-      <li><strong>Select a Firebase project</strong>: 방금 만든 <code>gongsupick</code> 선택</li>
-      <li><strong>Which platforms</strong>: Android만 체크 (iOS 나중에)</li>
-      <li>완료까지 약 30초</li>
-    </ul>
+# PATH 추가 (~/.zshrc 또는 ~/.bashrc)
+export PATH="$PATH":"$HOME/.pub-cache/bin"</code></pre>
+    <div class="callout info">
+      현재 환경에 둘 다 이미 설치되어 있습니다 (개발 환경 셋업 단계에서 처리됨). 설치 명령을 다시 실행해도 안전합니다.
+    </div>
   </div>
 
-  <h2>STEP 3 · main.dart 한 줄 수정</h2>
+  <h2>STEP 3 · Firebase 로그인 + 프로젝트 연결</h2>
   <div class="step">
-    <h3><span class="num">3</span>options 명시</h3>
-    <p>flutterfire가 만든 <code>lib/firebase_options.dart</code>를 사용하도록 main.dart 수정:</p>
-    <pre><code>// lib/main.dart 상단 import 추가
-import 'firebase_options.dart';
+    <h3><span class="num">3</span>OAuth 로그인 한 번</h3>
+    <pre><code># 본인 Google 계정으로 로그인 (브라우저 OAuth)
+firebase login
 
-// main() 안의 Firebase.initializeApp() 호출을 다음과 같이 수정:
+# 프로젝트 루트에서 실행
+cd /Users/dev/Documents/flutter/GongsuPick
+flutterfire configure --project=gongsupick --platforms=android</code></pre>
+    <p>실행 시 자동으로 처리되는 작업:</p>
+    <ul>
+      <li>Android 앱 등록 (<code>kr.co.blot.gongsupick</code>)</li>
+      <li><code>android/app/google-services.json</code> 다운로드</li>
+      <li><code>lib/firebase_options.dart</code> 생성 (placeholder를 실제 값으로 덮어씀)</li>
+      <li>Gradle <code>com.google.gms.google-services</code> 플러그인 자동 추가</li>
+    </ul>
+    <p>완료까지 약 30초.</p>
+  </div>
+
+  <h2>STEP 4 · main.dart는 이미 적용됨</h2>
+  <div class="callout">
+    <strong>✅ 코드 작업 완료</strong>
+    <code>main.dart</code>는 이미 다음과 같이 수정되어 있어 STEP 3 실행 후 자동으로 동작합니다:
+    <pre style="margin-top:8px;"><code>import 'firebase_options.dart';
+// ...
 await Firebase.initializeApp(
   options: DefaultFirebaseOptions.currentPlatform,
 );</code></pre>
-    <p class="muted">이 변경 없이도 google-services.json만 있으면 Android에서는 동작하지만, options 명시가 정석.</p>
+    placeholder firebase_options.dart는 throws → main.dart의 try/catch가 잡아 Noop 폴백 → STEP 3 후 실제 옵션으로 자동 교체.
   </div>
 
-  <h2>STEP 4 · Crashlytics Gradle 플러그인 추가</h2>
+  <h2>STEP 5 · Crashlytics Gradle 플러그인 추가</h2>
   <div class="step">
-    <h3><span class="num">4</span>android/build.gradle.kts</h3>
+    <h3><span class="num">5</span>android/build.gradle.kts</h3>
     <pre><code>// android/build.gradle.kts (project-level)
 plugins {
     // ... 기존 플러그인 ...
@@ -129,16 +136,50 @@ plugins {
     <p class="muted">flutterfire configure가 STEP 4의 첫 부분(google-services 플러그인)은 자동으로 추가하지만, Crashlytics 플러그인은 수동으로 추가해야 합니다.</p>
   </div>
 
-  <h2>STEP 5 · 빌드 + 검증</h2>
+  <h2>STEP 6 · 푸시 알림 (FCM) 설정 + 사용</h2>
   <div class="step">
-    <h3><span class="num">6</span>릴리즈 모드에서만 Crashlytics 동작</h3>
+    <h3><span class="num">7</span>코드는 준비됨 — 콘솔에서 메시지만 보내면 됨</h3>
+    <p>현재 앱은 다음과 같이 구성되어 있습니다:</p>
+    <ul>
+      <li><code>firebase_messaging</code> 패키지 통합 완료</li>
+      <li>앱 첫 실행 시 알림 권한 요청 (Android 13+ POST_NOTIFICATIONS, iOS APNs)</li>
+      <li><code>all_users</code> 토픽 자동 구독 — 이 토픽에 메시지 보내면 모든 사용자에게 도착</li>
+      <li>foreground/background 모두 처리: 백그라운드는 시스템 알림으로 자동 표시</li>
+    </ul>
+
+    <h4>관리자 측 — Firebase Console에서 푸시 보내기</h4>
+    <ol>
+      <li><a href="https://console.firebase.google.com/project/gongsupick/messaging" target="_blank">Firebase Console → Messaging</a></li>
+      <li><strong>새 캠페인 만들기 → 알림</strong></li>
+      <li>제목/본문 입력 (예: "새 일감 정보가 업데이트됐어요")</li>
+      <li>대상: <strong>주제(Topic) → <code>all_users</code></strong></li>
+      <li>예약 또는 즉시 전송</li>
+    </ol>
+
+    <h4>활용 사례</h4>
+    <ul>
+      <li>새 버전 출시 알림</li>
+      <li>일감 정보 업데이트 (주 1~2회 권장)</li>
+      <li>이벤트/할인 안내</li>
+      <li>중요 공지 (서비스 정책 변경 등)</li>
+    </ul>
+
+    <div class="callout">
+      <strong>주의:</strong> 너무 잦은 푸시는 설정 → 알림 끄기로 이어지고, 결국 토픽 unsubscribe됨.
+      주 1~2회를 넘지 않도록 권장. 사용자 ID별 push가 필요해지면 향후 token 저장 + 서버 발송 로직 추가 가능.
+    </div>
+  </div>
+
+  <h2>STEP 7 · 빌드 + 검증</h2>
+  <div class="step">
+    <h3><span class="num">8</span>릴리즈 모드에서만 Crashlytics 동작</h3>
     <pre><code># 빌드
 flutter build appbundle --release
 
 # 또는 디버그로 동작 확인 (Crashlytics는 release만 보고)
 flutter run</code></pre>
 
-    <h3 style="margin-top:24px;"><span class="num">7</span>Firebase Console에서 확인</h3>
+    <h3 style="margin-top:24px;"><span class="num">9</span>Firebase Console에서 확인</h3>
     <ul>
       <li><strong>Analytics → Realtime</strong>: 앱 실행 시 1~2분 내 사용자 수 증가</li>
       <li><strong>Analytics → DebugView</strong>: 디버그 빌드의 이벤트가 즉시 표시 (디바이스에 <code>adb shell setprop debug.firebase.analytics.app kr.co.blot.gongsupick</code> 한 번 실행)</li>
