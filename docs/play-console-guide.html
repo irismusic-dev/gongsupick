@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>공수픽 — Play Console 등록 가이드</title>
+<style>
+:root {
+  --yellow: #F5B400;
+  --navy: #1F2937;
+  --muted: #6B7280;
+  --bg: #F7F8FA;
+  --code-bg: #F3F4F6;
+  --border: #E5E7EB;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--navy);
+  margin: 0;
+  line-height: 1.65;
+}
+header {
+  background: var(--navy);
+  color: white;
+  padding: 56px 24px 64px;
+  text-align: center;
+}
+header .badge {
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--navy);
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+header h1 { margin: 0 0 8px; font-size: 30px; }
+header p { margin: 0; opacity: .7; font-size: 14px; }
+main {
+  max-width: 880px;
+  margin: -32px auto 64px;
+  background: white;
+  padding: 36px 40px;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.06);
+}
+h2 {
+  margin-top: 40px;
+  font-size: 22px;
+  border-left: 4px solid var(--yellow);
+  padding-left: 12px;
+}
+h3 { margin-top: 24px; font-size: 17px; }
+h4 { margin-top: 18px; font-size: 15px; color: var(--muted); }
+p, li { font-size: 15px; }
+ul, ol { padding-left: 22px; }
+li { margin-bottom: 6px; }
+.muted { color: var(--muted); font-size: 13px; }
+hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+nav.toc {
+  background: var(--bg);
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin: 16px 0 28px;
+  font-size: 14px;
+}
+nav.toc strong { display: block; margin-bottom: 6px; color: var(--muted); font-size: 12px; letter-spacing: .5px; text-transform: uppercase; }
+nav.toc a {
+  color: var(--navy);
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 10px 4px 0;
+  padding: 2px 0;
+}
+nav.toc a:hover { text-decoration: underline; }
+code, kbd {
+  background: var(--code-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 13px;
+}
+pre {
+  background: var(--code-bg);
+  padding: 14px 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.5;
+}
+pre code { background: transparent; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 14px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { background: var(--bg); font-size: 13px; }
+.callout {
+  border-left: 4px solid var(--yellow);
+  background: #FEF7E0;
+  padding: 14px 18px;
+  border-radius: 6px;
+  margin: 14px 0;
+  font-size: 14px;
+}
+.callout.danger {
+  border-left-color: #DC2626;
+  background: #FEE2E2;
+}
+.callout.info {
+  border-left-color: #3B82F6;
+  background: #EFF6FF;
+}
+.callout strong { display: block; margin-bottom: 4px; }
+.step {
+  background: var(--bg);
+  padding: 18px 22px;
+  border-radius: 10px;
+  margin: 16px 0;
+  border: 1px solid var(--border);
+}
+.step h3 { margin-top: 0; }
+.step .num {
+  display: inline-block;
+  background: var(--navy);
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  text-align: center;
+  font-weight: bold;
+  margin-right: 10px;
+  line-height: 28px;
+  font-size: 13px;
+}
+img.shot {
+  display: block;
+  max-width: 320px;
+  width: 100%;
+  margin: 12px auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+img.banner {
+  display: block;
+  width: 100%;
+  margin: 12px 0;
+  border-radius: 8px;
+}
+a { color: var(--navy); }
+a.btn {
+  display: inline-block;
+  background: var(--navy);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 4px 0;
+}
+a.btn:hover { background: #111827; }
+footer {
+  text-align: center;
+  padding: 24px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.field-table th { width: 30%; }
+.field-table td code { font-size: 12px; }
+.warn { color: #DC2626; font-weight: 600; }
+.ok { color: #059669; font-weight: 600; }
+.asset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+.asset-grid .item {
+  background: var(--bg);
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 13px;
+}
+.asset-grid img { max-width: 100%; border-radius: 4px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="badge">PLAY CONSOLE 출시 가이드</div>
+  <h1>공수픽 — Google Play 등록 절차</h1>
+  <p>키스토어 → 빌드 → 앱 등록 → 내부 테스트 → 인앱 결제 → 정식 출시</p>
+</header>
+
+<main>
+  <p class="muted">최종 수정: 2026-05-09 · 이 가이드는 <a href="./">개인정보처리방침</a>과 함께 GitHub Pages에서 호스팅됩니다.</p>
+
+  <nav class="toc">
+    <strong>목차</strong>
+    <a href="#prereq">0. 사전 준비</a>
+    <a href="#step1">1. 개발자 등록</a>
+    <a href="#step2">2. 앱 만들기</a>
+    <a href="#step3">3. 내부 테스트 업로드</a>
+    <a href="#step4">4. 인앱 상품 등록</a>
+    <a href="#step5">5. 라이선스 테스터</a>
+    <a href="#step6">6. 결제 흐름 검증</a>
+    <a href="#step7">7. 출시 전 필수항목</a>
+    <a href="#assets">8. 등록용 이미지</a>
+    <a href="#screenshots">9. 스크린샷</a>
+  </nav>
+
+  <h2 id="prereq">0. 사전 준비 (이미 완료된 항목)</h2>
+  <table class="field-table">
+    <tr><th>항목</th><th>상태</th></tr>
+    <tr><td>업로드 키스토어 생성</td><td class="ok">✅ <code>~/.android-keystores/gongsupick-upload.jks</code></td></tr>
+    <tr><td>비밀번호 / 별칭</td><td class="ok">✅ <code>Gongsupick2026!</code> · alias: <code>upload</code></td></tr>
+    <tr><td>Gradle 서명 설정</td><td class="ok">✅ <code>android/key.properties</code> + <code>build.gradle.kts</code></td></tr>
+    <tr><td>릴리즈 AAB</td><td class="ok">✅ <code>build/app/outputs/bundle/release/app-release.aab</code> (58MB)</td></tr>
+    <tr><td>AdMob 실 ID</td><td class="ok">✅ <code>~7878141541</code> (App), <code>/1650048655</code> (Banner)</td></tr>
+    <tr><td>Naver 검색 API 키</td><td class="ok">✅ <code>lib/core/secrets/naver_credentials.dart</code></td></tr>
+    <tr><td>개인정보처리방침 URL</td><td class="ok">✅ <a href="./">https://irismusic-dev.github.io/gongsupick/</a></td></tr>
+    <tr><td>지원 이메일</td><td class="ok">✅ <code>kimkho0707@gmail.com</code></td></tr>
+  </table>
+
+  <div class="callout danger">
+    <strong>⚠️ 키스토어 영구 보관 필수</strong>
+    <code>gongsupick-upload.jks</code> 분실 시 같은 앱으로 재서명 불가. 1Password 등 보안 백업으로 두 곳 이상에 보관하세요.
+  </div>
+
+  <h2 id="step1">1. 개발자 계정 등록</h2>
+  <div class="step">
+    <h3><span class="num">1</span>Google Play Developer 가입</h3>
+    <p><a class="btn" href="https://play.google.com/console/signup" target="_blank">Play Console 가입 →</a></p>
+    <ul>
+      <li>등록비: <strong>$25 (1회)</strong></li>
+      <li>본인 인증: 신분증 사진 업로드 필요</li>
+      <li>심사 기간: 보통 24시간 ~ 며칠</li>
+    </ul>
+    <div class="callout info">
+      이전 개발자 계정이 정책 위반으로 정지된 경우, 동일 명의로 재등록 시 자동 거부될 수 있습니다.
+      문제없는 경우(자발적 폐쇄/만료)에는 새 계정 생성 가능.
+    </div>
+  </div>
+
+  <h2 id="step2">2. 앱 만들기</h2>
+  <div class="step">
+    <h3><span class="num">2</span>앱 등록</h3>
+    <p><a class="btn" href="https://play.google.com/console/u/0/developers/app/create" target="_blank">앱 만들기 →</a></p>
+    <table class="field-table">
+      <tr><th>앱 이름</th><td>공수픽</td></tr>
+      <tr><th>기본 언어</th><td>한국어 (ko-KR)</td></tr>
+      <tr><th>앱 또는 게임</th><td>앱</td></tr>
+      <tr><th>무료/유료</th><td>무료</td></tr>
+      <tr><th>선언</th><td>개발자 프로그램 정책 + 미국 수출법 준수 모두 체크</td></tr>
+    </table>
+    <p>→ <strong>앱 만들기</strong> 클릭. 이후 좌측 메뉴에 다양한 단계가 표시됩니다.</p>
+  </div>
+
+  <h2 id="step3">3. 내부 테스트 트랙 업로드</h2>
+  <div class="step">
+    <h3><span class="num">3</span>첫 빌드 업로드</h3>
+    <p>좌측 메뉴: <code>테스트 → 내부 테스트 → 새 버전 만들기</code></p>
+    <ol>
+      <li><strong>Play 앱 서명</strong>은 활성화 권장 (자동, Google이 마스터 키 보관 → 키스토어 분실 대비)</li>
+      <li><strong>App Bundle 업로드</strong>:
+        <pre><code>build/app/outputs/bundle/release/app-release.aab</code></pre>
+        파일을 화면에 끌어다 놓기
+      </li>
+      <li>버전명: <code>1.0.0 (1)</code> 자동 채워짐</li>
+      <li>출시 노트(한국어):
+        <pre><code>첫 출시
+- 공수 캘린더 입력 (0.5/1.0/1.5/2.0/휴 빠른 버튼)
+- 월간/연간 정산 + CSV 내보내기
+- 일정 관리 (오늘/다가오는/지난)
+- 일감 정보 (네이버 카페 검색 + 채용사이트 바로가기)
+- 데이터 백업/복구 (JSON)</code></pre>
+      </li>
+      <li><strong>저장</strong> → <strong>버전 검토</strong> → <strong>내부 테스트로 출시</strong></li>
+    </ol>
+    <p>검토 시간: 보통 수 분 ~ 수 시간.</p>
+  </div>
+
+  <h2 id="step4">4. 인앱 상품 등록</h2>
+  <div class="step">
+    <h3><span class="num">4</span>광고 제거 IAP 만들기</h3>
+    <div class="callout">
+      <strong>전제</strong>: 첫 AAB 검토가 끝나야 인앱 상품 메뉴가 활성화됩니다.
+    </div>
+    <p>좌측 메뉴: <code>수익 창출 → 제품 → 인앱 상품 → 상품 만들기</code></p>
+    <table class="field-table">
+      <tr><th>제품 ID</th><td><code>gongsupick_no_ads</code> <span class="warn">(변경 불가, 그대로 입력)</span></td></tr>
+      <tr><th>이름</th><td>광고 제거</td></tr>
+      <tr><th>설명</th><td>모든 페이지의 하단 광고 배너를 영구적으로 제거합니다. 한 번 결제하면 같은 Google 계정으로 재설치해도 자동 적용됩니다.</td></tr>
+      <tr><th>가격</th><td><strong>₩2,900 KRW</strong></td></tr>
+      <tr><th>상태</th><td>활성</td></tr>
+    </table>
+    <p>→ <strong>저장</strong> → <strong>활성화</strong></p>
+  </div>
+
+  <h2 id="step5">5. 라이선스 테스트 계정 등록</h2>
+  <div class="step">
+    <h3><span class="num">5</span>실 결제 없이 테스트</h3>
+    <p>실제 카드 청구 없이 결제 흐름을 검증할 수 있습니다.</p>
+
+    <h4>5-1. 라이선스 응답 설정</h4>
+    <p>우측 상단 <strong>설정(톱니)</strong> → <strong>라이선스 테스트</strong></p>
+    <ul>
+      <li>테스트 계정: <code>kimkho0707@gmail.com</code></li>
+      <li>라이선스 응답: <strong>LICENSED</strong></li>
+      <li>저장</li>
+    </ul>
+
+    <h4>5-2. 내부 테스트 트랙에 테스터 추가</h4>
+    <p><code>테스트 → 내부 테스트 → 테스터</code> 탭</p>
+    <ul>
+      <li>이메일 목록 만들기 → <code>kimkho0707@gmail.com</code> 추가 → 저장</li>
+      <li>옵트인 URL 복사</li>
+    </ul>
+
+    <h4>5-3. 디바이스 셋업</h4>
+    <ol>
+      <li>실 안드로이드 기기에서 <code>kimkho0707@gmail.com</code>으로 Google 로그인</li>
+      <li>옵트인 URL을 그 기기에서 클릭 → "참여하기"</li>
+      <li>Play Store에서 <strong>공수픽</strong> 검색 → 설치</li>
+    </ol>
+  </div>
+
+  <h2 id="step6">6. 결제 흐름 검증</h2>
+  <div class="step">
+    <h3><span class="num">6</span>광고제거 IAP 동작 확인</h3>
+    <ol>
+      <li>설치된 공수픽 실행</li>
+      <li>온보딩 통과 → <strong>더보기</strong> 탭</li>
+      <li><strong>결제 → 광고제거</strong> 항목 진입</li>
+      <li>가격 <code>₩2,900</code> 표시되는지 확인</li>
+      <li><strong>광고 제거 결제</strong> 버튼 → Google Play 결제 시트</li>
+      <li><span class="warn">테스트 카드</span>로 결제 진행 (실제 청구 X)</li>
+      <li>완료 후 화면에 <strong>"광고 제거가 적용되어 있습니다"</strong> 녹색 안내 출력</li>
+      <li>홈/공수/일정 등 모든 화면의 하단 배너 사라짐 확인</li>
+    </ol>
+  </div>
+
+  <h2 id="step7">7. 정식 출시 전 필수 작성 항목</h2>
+  <div class="step">
+    <h3><span class="num">7</span>좌측 메뉴 <code>앱 콘텐츠</code></h3>
+    <table class="field-table">
+      <tr><th>개인정보처리방침</th><td>URL: <code>https://irismusic-dev.github.io/gongsupick/</code></td></tr>
+      <tr><th>광고 포함 여부</th><td>예 (Google AdMob 사용)</td></tr>
+      <tr><th>데이터 보안</th><td>
+        <ul>
+          <li>수집: <strong>광고 ID</strong> (AdMob), <strong>앱 상호작용</strong> (Firebase)</li>
+          <li>비식별 / 암호화 전송</li>
+          <li>사용자 입력 데이터(공수, 일정 등)는 <strong>기기에서만</strong> 저장</li>
+        </ul>
+      </td></tr>
+      <tr><th>콘텐츠 등급</th><td>설문 작성 → 모든 연령가 (Everyone)</td></tr>
+      <tr><th>대상 연령층</th><td>만 18세 이상</td></tr>
+      <tr><th>뉴스 앱 여부</th><td>아니요</td></tr>
+      <tr><th>COVID-19 추적 앱</th><td>아니요</td></tr>
+      <tr><th>데이터 안전</th><td>위 데이터 보안 항목과 동일하게 작성</td></tr>
+    </table>
+
+    <h3 style="margin-top: 24px;"><span class="num">8</span>좌측 메뉴 <code>스토어 등록정보</code></h3>
+    <table class="field-table">
+      <tr><th>앱 카테고리</th><td>생산성 (Productivity)</td></tr>
+      <tr><th>이메일</th><td><code>kimkho0707@gmail.com</code></td></tr>
+      <tr><th>웹사이트</th><td><code>https://irismusic-dev.github.io/gongsupick/</code></td></tr>
+      <tr><th>짧은 설명 (80자)</th><td>공수 계산, 출근 기록, 일감 정보를 한 번에 관리하세요.</td></tr>
+      <tr><th>자세한 설명</th><td>아래 <a href="#desc">8번 항목</a> 참조</td></tr>
+    </table>
+  </div>
+
+  <h2 id="assets">8. 스토어 등록용 이미지</h2>
+  <p>아래 이미지들이 <code>docs/play-assets/</code> 폴더에 준비되어 있습니다. Play Console 등록정보에 그대로 업로드하세요.</p>
+
+  <div class="asset-grid">
+    <div class="item">
+      <img src="play-assets/feature-graphic.png" alt="Feature graphic">
+      <div><strong>피처 그래픽</strong></div>
+      <div class="muted">1024 × 500 PNG</div>
+      <div class="muted">필수</div>
+    </div>
+    <div class="item">
+      <img src="play-assets/icon-512.png" alt="Hi-res icon" style="max-width: 96px">
+      <div><strong>고해상도 아이콘</strong></div>
+      <div class="muted">512 × 512 PNG</div>
+      <div class="muted">필수</div>
+    </div>
+  </div>
+
+  <h3 id="desc">자세한 설명 (복사해서 붙여넣기)</h3>
+  <div class="step">
+    <pre><code>공수픽 (GongsuPick)
+
+공수픽은 현장 작업자, 계장공, 생산직, 일용직을 위한
+공수 계산 및 일감 정보 앱입니다.
+
+복잡한 공수 계산부터 현장 일감 정보까지
+현장에서 필요한 기능을 쉽고 빠르게 이용할 수 있습니다.
+
+■ 주요 기능
+• 공수 캘린더 — 0.5/1.0/1.5/2.0/휴 빠른 버튼으로 일별 공수 입력
+• 자동 정산 — 단가 × 공수 자동 계산, 월간/연간 합계
+• 세율 조정 — 소득세·지방세 등 세율 룰 적용 (참고용)
+• 일정 관리 — 오늘/다가오는/지난 일정 한눈에
+• 일감 정보 — 네이버 카페 검색 + 워크넷·알바천국·잡코리아 바로가기
+• 데이터 백업/복구 — JSON 파일로 영구 보관
+• 인앱 결제로 광고 제거 가능
+
+■ 이런 분들에게 추천
+- 계장공·생산직·일용직 등 현장 작업자
+- 매일 공수와 단가를 따로 메모하고 계산하기 번거로운 분
+- 출근 기록과 정산 내역을 깔끔하게 관리하고 싶은 분
+- 일감 정보를 여러 사이트 돌아다니며 보기 귀찮은 분
+
+■ 데이터 보호
+모든 사용자 입력 데이터(공수, 일정, 그룹, 세율)는
+사용자 기기에만 저장됩니다. 서버로 전송되지 않습니다.
+
+문의: kimkho0707@gmail.com
+개인정보처리방침: https://irismusic-dev.github.io/gongsupick/</code></pre>
+  </div>
+
+  <h2 id="screenshots">9. 앱 스크린샷</h2>
+  <p>아래 스크린샷이 <code>docs/screenshots/</code> 폴더에 있습니다. 휴대폰 스크린샷 슬롯에 순서대로 업로드.</p>
+  <p class="muted">권장: 핸드폰 5장 이상 (필수 2장+), 7인치 태블릿 1장+, 10인치 태블릿 1장+. 같은 이미지를 모든 슬롯에 올려도 통과합니다.</p>
+
+  <div class="asset-grid">
+    <div class="item">
+      <img src="screenshots/01-home.png" alt="Home">
+      <div><strong>1. 홈</strong></div>
+      <div class="muted">월별 요약 + 일정 + 일감</div>
+    </div>
+    <div class="item">
+      <img src="screenshots/02-calendar.png" alt="Calendar">
+      <div><strong>2. 공수 캘린더</strong></div>
+      <div class="muted">월간 그리드 + 빠른 버튼</div>
+    </div>
+    <div class="item">
+      <img src="screenshots/03-entry-edit.png" alt="Entry sheet">
+      <div><strong>3. 공수 입력 시트</strong></div>
+      <div class="muted">공수/단가/메모</div>
+    </div>
+    <div class="item">
+      <img src="screenshots/04-schedule.png" alt="Schedule">
+      <div><strong>4. 일정</strong></div>
+      <div class="muted">오늘/다가오는/지난</div>
+    </div>
+    <div class="item">
+      <img src="screenshots/05-jobs.png" alt="Jobs">
+      <div><strong>5. 일감</strong></div>
+      <div class="muted">바로가기 + 카페 검색</div>
+    </div>
+    <div class="item">
+      <img src="screenshots/06-more.png" alt="More menu">
+      <div><strong>6. 더보기</strong></div>
+      <div class="muted">정산/백업/설정/IAP</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <h2>릴리즈 빌드 명령</h2>
+  <pre><code># 1) 최신 코드 가져온 뒤
+flutter pub get
+dart run build_runner build --delete-conflicting-outputs
+
+# 2) 키스토어 + 광고 ID 자동 적용된 AAB
+flutter build appbundle --release
+
+# 출력: build/app/outputs/bundle/release/app-release.aab</code></pre>
+
+  <p class="muted">버전 올릴 때: <code>pubspec.yaml</code>의 <code>version: 1.0.0+1</code> 에서 <code>+1</code>을 <code>+2</code>로 (versionCode 증가).</p>
+</main>
+
+<footer>
+  &copy; 2026 공수픽 · GongsuPick · <a href="mailto:kimkho0707@gmail.com">kimkho0707@gmail.com</a>
+</footer>
+</body>
+</html>
