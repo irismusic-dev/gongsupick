@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>공수픽 — Firebase 설정 가이드</title>
+<style>
+:root { --yellow:#F5B400; --navy:#1F2937; --muted:#6B7280; --bg:#F7F8FA; --code-bg:#F3F4F6; --border:#E5E7EB; }
+*{box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;background:var(--bg);color:var(--navy);margin:0;line-height:1.65}
+header{background:var(--navy);color:white;padding:48px 24px 56px;text-align:center}
+header .badge{display:inline-block;background:var(--yellow);color:var(--navy);font-weight:700;padding:6px 14px;border-radius:999px;margin-bottom:14px;font-size:12px;letter-spacing:1px}
+header h1{margin:0 0 8px;font-size:28px}
+header p{margin:0;opacity:.7;font-size:14px}
+main{max-width:880px;margin:-32px auto 64px;background:white;padding:32px 36px;border-radius:16px;box-shadow:0 12px 32px rgba(0,0,0,.06)}
+h2{margin-top:36px;font-size:20px;border-left:4px solid var(--yellow);padding-left:12px}
+h3{margin-top:22px;font-size:16px}
+p,li{font-size:15px}
+ul,ol{padding-left:22px}li{margin-bottom:6px}
+.muted{color:var(--muted);font-size:13px}
+hr{border:0;border-top:1px solid var(--border);margin:32px 0}
+code,kbd{background:var(--code-bg);padding:2px 6px;border-radius:4px;font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13px}
+pre{background:var(--code-bg);padding:14px 16px;border-radius:8px;overflow-x:auto;font-size:13px;line-height:1.5}
+pre code{background:transparent;padding:0}
+.callout{border-left:4px solid var(--yellow);background:#FEF7E0;padding:14px 18px;border-radius:6px;margin:14px 0;font-size:14px}
+.callout.info{border-left-color:#3B82F6;background:#EFF6FF}
+.callout.danger{border-left-color:#DC2626;background:#FEE2E2}
+.step{background:var(--bg);padding:18px 22px;border-radius:10px;margin:16px 0;border:1px solid var(--border)}
+.step h3{margin-top:0}
+.step .num{display:inline-block;background:var(--navy);color:white;width:28px;height:28px;border-radius:50%;text-align:center;font-weight:bold;margin-right:10px;line-height:28px;font-size:13px}
+a{color:var(--navy)}
+a.btn{display:inline-block;background:var(--navy);color:white;padding:8px 14px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;margin:4px 0}
+footer{text-align:center;padding:24px;color:var(--muted);font-size:13px}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:var(--bg);font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <div class="badge">FIREBASE 설정 가이드</div>
+  <h1>공수픽 — Firebase Analytics + Crashlytics 활성화</h1>
+  <p>Firebase 프로젝트 생성 → flutterfire configure → 빌드 한 번이면 끝</p>
+</header>
+
+<main>
+  <p class="muted">최종 수정: 2026-05-09 · 코드는 이미 Firebase 호출 가능 상태. 아래 두 단계만 진행하시면 됩니다.</p>
+
+  <div class="callout">
+    <strong>현재 상태</strong>
+    Firebase 미설정 → 앱은 정상 작동, Analytics 이벤트는 NoopAnalyticsService(콘솔에 debug print만)로 처리.
+    아래 단계를 마치면 자동으로 실 Firebase로 전환됩니다.
+  </div>
+
+  <h2>STEP 1 · Firebase 프로젝트 만들기</h2>
+  <div class="step">
+    <h3><span class="num">1</span>Firebase Console 진입</h3>
+    <p><a class="btn" href="https://console.firebase.google.com/" target="_blank">Firebase Console →</a></p>
+    <ol>
+      <li><strong>프로젝트 만들기</strong> 클릭</li>
+      <li>프로젝트 이름: <code>gongsupick</code> (자유)</li>
+      <li>Google Analytics: <strong>사용</strong> 선택 → 계정 선택/생성</li>
+      <li>국가: 대한민국 → 만들기</li>
+    </ol>
+    <p class="muted">생성에 약 1분 걸립니다.</p>
+  </div>
+
+  <h2>STEP 2 · flutterfire CLI로 자동 연결 (가장 쉬움)</h2>
+  <div class="step">
+    <h3><span class="num">2</span>로컬에서 명령 한 번</h3>
+    <p>아래 명령은 아래 작업을 자동으로 처리합니다:</p>
+    <ul>
+      <li>Android 앱 등록</li>
+      <li><code>android/app/google-services.json</code> 다운로드</li>
+      <li><code>lib/firebase_options.dart</code> 생성</li>
+      <li>Gradle 플러그인 자동 설정</li>
+    </ul>
+    <pre><code># 1) flutterfire CLI 설치 (한 번만)
+dart pub global activate flutterfire_cli
+
+# 2) PATH에 pub bin 추가 (zshrc/bashrc에 영구 추가 권장)
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+
+# 3) 프로젝트 루트에서 실행
+cd /Users/dev/Documents/flutter/GongsuPick
+flutterfire configure</code></pre>
+    <p>대화형 입력:</p>
+    <ul>
+      <li><strong>Select a Firebase project</strong>: 방금 만든 <code>gongsupick</code> 선택</li>
+      <li><strong>Which platforms</strong>: Android만 체크 (iOS 나중에)</li>
+      <li>완료까지 약 30초</li>
+    </ul>
+  </div>
+
+  <h2>STEP 3 · main.dart 한 줄 수정</h2>
+  <div class="step">
+    <h3><span class="num">3</span>options 명시</h3>
+    <p>flutterfire가 만든 <code>lib/firebase_options.dart</code>를 사용하도록 main.dart 수정:</p>
+    <pre><code>// lib/main.dart 상단 import 추가
+import 'firebase_options.dart';
+
+// main() 안의 Firebase.initializeApp() 호출을 다음과 같이 수정:
+await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);</code></pre>
+    <p class="muted">이 변경 없이도 google-services.json만 있으면 Android에서는 동작하지만, options 명시가 정석.</p>
+  </div>
+
+  <h2>STEP 4 · Crashlytics Gradle 플러그인 추가</h2>
+  <div class="step">
+    <h3><span class="num">4</span>android/build.gradle.kts</h3>
+    <pre><code>// android/build.gradle.kts (project-level)
+plugins {
+    // ... 기존 플러그인 ...
+    id("com.google.gms.google-services") version "4.4.2" apply false
+    id("com.google.firebase.crashlytics") version "3.0.2" apply false
+}</code></pre>
+
+    <h3 style="margin-top:24px;"><span class="num">5</span>android/app/build.gradle.kts</h3>
+    <pre><code>// android/app/build.gradle.kts 상단 plugins 블록에 추가
+plugins {
+    id("com.android.application")
+    id("kotlin-android")
+    id("dev.flutter.flutter-gradle-plugin")
+    // 추가:
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
+}</code></pre>
+    <p class="muted">flutterfire configure가 STEP 4의 첫 부분(google-services 플러그인)은 자동으로 추가하지만, Crashlytics 플러그인은 수동으로 추가해야 합니다.</p>
+  </div>
+
+  <h2>STEP 5 · 빌드 + 검증</h2>
+  <div class="step">
+    <h3><span class="num">6</span>릴리즈 모드에서만 Crashlytics 동작</h3>
+    <pre><code># 빌드
+flutter build appbundle --release
+
+# 또는 디버그로 동작 확인 (Crashlytics는 release만 보고)
+flutter run</code></pre>
+
+    <h3 style="margin-top:24px;"><span class="num">7</span>Firebase Console에서 확인</h3>
+    <ul>
+      <li><strong>Analytics → Realtime</strong>: 앱 실행 시 1~2분 내 사용자 수 증가</li>
+      <li><strong>Analytics → DebugView</strong>: 디버그 빌드의 이벤트가 즉시 표시 (디바이스에 <code>adb shell setprop debug.firebase.analytics.app kr.co.blot.gongsupick</code> 한 번 실행)</li>
+      <li><strong>Crashlytics</strong>: 첫 크래시 후 자동 등록 (신규 프로젝트는 1회 sample crash 권유 — 무시 OK)</li>
+    </ul>
+  </div>
+
+  <h2>코드는 이미 무엇을 보내나요?</h2>
+  <table>
+    <tr><th>이벤트</th><th>발생 시점</th><th>파라미터</th></tr>
+    <tr><td><code>app_open</code></td><td>앱 시작</td><td>(Firebase 기본)</td></tr>
+    <tr><td><code>entry_saved</code></td><td>공수 입력 시트 저장</td><td>gongsu, is_settled, has_group, is_holiday</td></tr>
+    <tr><td><code>job_clicked</code></td><td>일감/북마크 클릭</td><td>source_type, position</td></tr>
+    <tr><td><code>webview_closed</code></td><td>WebView 닫기</td><td>dwell_seconds</td></tr>
+    <tr><td><code>backup_export</code></td><td>JSON 내보내기 성공</td><td>(없음)</td></tr>
+  </table>
+  <p class="muted">광고 수익 최적화에 가장 중요한 5개로 압축. 이벤트 수가 적을수록 Firebase Analytics가 패턴 학습이 쉽습니다.</p>
+
+  <hr>
+
+  <h2>iOS 추가 시 (나중에)</h2>
+  <p>iOS 앱 등록 후 같은 <code>flutterfire configure</code> 명령에서 iOS도 체크하면 자동으로 <code>GoogleService-Info.plist</code>가 ios/Runner/에 들어가고 firebase_options.dart에 iOS 옵션이 추가됩니다. 추가 코드 변경 없음.</p>
+
+  <hr>
+
+  <p class="muted">관련 자료:
+    <a href="https://firebase.flutter.dev/docs/overview" target="_blank">FlutterFire 공식 문서</a> ·
+    <a href="https://console.firebase.google.com/" target="_blank">Firebase Console</a> ·
+    <a href="play-console-guide.html">Play Console 가이드</a> ·
+    <a href="./">개인정보처리방침</a>
+  </p>
+</main>
+
+<footer>
+  &copy; 2026 공수픽 · GongsuPick · <a href="mailto:kimkho0707@gmail.com">kimkho0707@gmail.com</a>
+</footer>
+</body>
+</html>
