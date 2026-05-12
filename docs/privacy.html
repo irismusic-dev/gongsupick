@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>개인정보처리방침 — 공수픽</title>
+<style>
+:root {
+  --yellow:#F5B400;
+  --navy:#1F2937;
+  --muted:#6B7280;
+  --bg:#F7F8FA;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--navy);
+  margin: 0;
+  line-height: 1.6;
+}
+header {
+  background: var(--navy);
+  color: white;
+  padding: 64px 24px 56px;
+  text-align: center;
+}
+header h1 { margin: 0 0 8px; font-size: 32px; }
+header p { margin: 0; opacity: .8; }
+.badge {
+  display: inline-block;
+  background: var(--yellow);
+  color: var(--navy);
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  letter-spacing: .5px;
+}
+main {
+  max-width: 720px;
+  margin: -32px auto 64px;
+  background: white;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.06);
+}
+h2 { margin-top: 32px; font-size: 22px; }
+h3 { margin-top: 20px; font-size: 16px; color: var(--navy); }
+p, li { font-size: 15px; }
+ul { padding-left: 20px; }
+.muted { color: var(--muted); font-size: 13px; }
+hr { border: 0; border-top: 1px solid #e5e7eb; margin: 32px 0; }
+nav.toc {
+  background: var(--bg);
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+nav.toc a { color: var(--navy); text-decoration: none; margin-right: 12px; }
+nav.toc a:hover { text-decoration: underline; }
+.back-link {
+  display: inline-block;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: none;
+}
+.back-link:hover { color: var(--navy); }
+footer {
+  text-align: center;
+  padding: 24px;
+  color: var(--muted);
+  font-size: 13px;
+}
+a { color: var(--navy); }
+table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+th { background: var(--bg); font-size: 13px; }
+.pill {
+  display: inline-block;
+  font-size: 11px;
+  background: #FEF3C7;
+  color: #92400E;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-left: 6px;
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="badge">공수픽 · GongsuPick</div>
+  <h1>개인정보처리방침</h1>
+  <p>현장 작업자를 위한 공수 계산 · 일감 정보 앱</p>
+</header>
+
+<main>
+  <a href="/" class="back-link">← 공수픽 소개로 돌아가기</a>
+  <p class="muted">최종 개정일: <strong>2026-05-09</strong> · 시행일: <strong>2026-05-09</strong></p>
+
+  <nav class="toc">
+    <a href="#scope">1. 적용범위</a>
+    <a href="#collected">2. 수집 항목</a>
+    <a href="#third-party">3. 제3자 SDK</a>
+    <a href="#storage">4. 저장 위치</a>
+    <a href="#international">5. 국제 이전</a>
+    <a href="#children">6. 아동 보호</a>
+    <a href="#rights">7. 사용자 권리</a>
+    <a href="#contact">8. 문의</a>
+  </nav>
+
+  <h2 id="scope">1. 적용범위</h2>
+  <p>본 방침은 모바일 애플리케이션 <strong>공수픽 (GongsuPick)</strong>(이하 "본 앱")에 적용됩니다. 본 앱은 사용자가 입력한 모든 공수·일정·세율 데이터를 사용자의 기기 내부에만 저장하며, 운영자(이하 "개발자")가 운영하는 서버로 사용자 입력 데이터를 전송하지 않습니다.</p>
+
+  <h2 id="collected">2. 본 앱이 직접 수집·전송하는 정보</h2>
+  <p>본 앱은 <strong>회원가입·로그인·클라우드 동기화 기능을 제공하지 않습니다.</strong> 사용자가 입력한 공수·일감·일정·세율·그룹 데이터는 모두 사용자의 기기에만 저장되며, 개발자가 운영하는 서버로 전송되지 않습니다.</p>
+  <p>다만 아래 제3자 SDK(섹션 3)를 통해 일부 비식별 정보가 자동 수집·전송됩니다. 모든 통신은 HTTPS(TLS 1.2 이상)로 암호화됩니다.</p>
+
+  <h2 id="third-party">3. 제3자 SDK 및 외부 서비스</h2>
+  <p>본 앱은 아래의 제3자 서비스를 통해 일부 기능을 제공합니다. 각 서비스는 자체 개인정보처리방침에 따라 정보를 수집할 수 있습니다.</p>
+
+  <table>
+    <thead>
+      <tr><th>서비스</th><th>목적</th><th>수집 항목</th><th>방침 링크</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Google AdMob</td>
+        <td>모바일 배너 광고 게재 및 광고 수익화</td>
+        <td>광고 식별자(AAID/IDFA), 일반 IP, 광고 노출·클릭 이벤트, 기기 모델·OS 버전, 앱 버전</td>
+        <td><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener">정책</a></td>
+      </tr>
+      <tr>
+        <td>Google Firebase Analytics</td>
+        <td>앱 사용 통계 (앱 시작, 화면 진입, 주요 사용자 행동 이벤트)</td>
+        <td>앱 인스턴스 ID(랜덤 발급), 화면 이름, 이벤트명·파라미터(공수 입력 여부 등 비식별 정보), 기기 종류·OS 버전, 대략 위치(국가/지역, IP 기반)</td>
+        <td><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">정책</a></td>
+      </tr>
+      <tr>
+        <td>Google Firebase Crashlytics</td>
+        <td>앱 크래시·예외 자동 보고로 안정성 개선</td>
+        <td>크래시 발생 시 — 스택 트레이스, 기기 모델·OS 버전, 앱 버전, 충돌 시점 직전의 화면 이동 흔적(breadcrumb), 무작위로 부여된 설치 ID. 사용자가 입력한 공수·일정 등 콘텐츠는 포함되지 않습니다.</td>
+        <td><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">정책</a></td>
+      </tr>
+      <tr>
+        <td>Google Firebase Cloud Messaging (FCM)</td>
+        <td>운영자의 공지·업데이트 알림 푸시 전송</td>
+        <td>FCM 등록 토큰(랜덤 발급, 푸시 도달용), 토픽 구독 정보(<code>all_users</code>). 메시지 본문은 운영자 콘솔에서만 작성되어 사용자 디바이스로 전달됩니다.</td>
+        <td><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">정책</a></td>
+      </tr>
+      <tr>
+        <td>Naver Search OpenAPI<span class="pill">선택</span></td>
+        <td>네이버 카페 일감 글 검색(사용자가 일감 메뉴에 직접 추가한 검색어에 한함)</td>
+        <td>사용자가 입력한 검색어 문자열, 본 앱의 API 클라이언트 키. 사용자 식별 정보는 전송하지 않습니다.</td>
+        <td><a href="https://developers.naver.com/products/service-api/search/search.md" target="_blank" rel="noopener">정책</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>본 앱은 위 서비스 외에 사용자의 개인정보를 수집·이용·제3자 제공하지 않습니다. 본 앱은 회원가입, 로그인, 클라우드 동기화, 인앱 결제(IAP)를 사용하지 않습니다.</p>
+
+  <h2 id="storage">4. 데이터 저장 위치 및 보유 기간</h2>
+  <ul>
+    <li><strong>공수·일정·세율·그룹 데이터</strong>: 사용자 기기 내 SQLite 데이터베이스(앱 전용 영역).</li>
+    <li><strong>설정 값</strong>: 사용자 기기 내 SharedPreferences(앱 전용 영역).</li>
+    <li><strong>일감 캐시(제목·링크)</strong>: 30일 또는 200건 한도 자동 정리, 사용자 기기 내 저장.</li>
+    <li><strong>보유 기간</strong>: 사용자가 "데이터 전체 삭제" 메뉴를 사용하거나, 앱을 삭제하면 기기 내 모든 데이터가 즉시 영구 삭제됩니다.</li>
+    <li><strong>백업 파일</strong>: 사용자가 "데이터 백업/복구" 메뉴에서 직접 생성한 JSON 파일은 사용자가 선택한 위치(메일·드라이브 등)에 저장되며, 본 앱 또는 개발자는 해당 파일에 접근하지 않습니다.</li>
+  </ul>
+
+  <h2 id="international">5. 국외 데이터 이전</h2>
+  <p>위 제3자 서비스(Google · Naver) 중 Google이 제공하는 서비스(AdMob, Firebase Analytics·Crashlytics·Cloud Messaging)는 미국을 비롯한 해외 데이터 센터에서 정보를 처리·저장합니다. 본 앱을 사용함으로써 사용자는 해당 정보가 국외로 이전되어 처리될 수 있다는 점에 동의하는 것으로 간주됩니다. 데이터는 모두 HTTPS로 암호화 전송되며, 각 서비스 제공자의 보호 정책 및 표준 계약 조항(Standard Contractual Clauses)에 따라 보호됩니다.</p>
+  <ul>
+    <li>이전 항목: 섹션 3의 표에 명시된 비식별 정보 일체</li>
+    <li>이전 국가: 미국(주 처리 국가) 등 Google·Naver의 해외 데이터 센터</li>
+    <li>이전 시기: 사용자가 본 앱을 실행하는 동안 자동으로 발생</li>
+    <li>이전 받는 자: Google LLC, Naver Corporation</li>
+    <li>이전 받는 자의 보유·이용 기간: 각 서비스 제공자의 정책에 따름(통상 14개월~26개월)</li>
+  </ul>
+
+  <h2 id="children">6. 아동 개인정보 보호</h2>
+  <p>본 앱은 만 14세 미만 아동을 주요 사용자로 하지 않으며, 의도적으로 아동의 개인정보를 수집하지 않습니다. 본 앱은 Google Play의 콘텐츠 등급 기준상 일반 사용자(전체 이용가)를 대상으로 하나, 아동의 직접 사용을 가정한 추가 보호조치(연령 인증, 부모 동의 등)는 적용하지 않습니다. 만 14세 미만 아동이 본 앱을 사용한 사실을 보호자가 인지한 경우, 즉시 앱 삭제 또는 "데이터 전체 삭제" 메뉴 사용을 권장하며, 위 문의처로 연락 시 신속히 조치합니다.</p>
+
+  <h2 id="rights">7. 사용자 권리</h2>
+  <ul>
+    <li><strong>광고 식별자 재설정·추적 거부</strong>는 OS 설정에서 언제든지 가능합니다.
+      <ul>
+        <li>Android: 설정 → Google → 광고 → 광고 ID 삭제</li>
+        <li>iOS 14.5+: 설정 → 개인 정보 보호 및 보안 → Tracking → 앱이 추적을 요청하도록 허용 끄기</li>
+      </ul>
+      거부 시 비개인화 광고가 표시되며, 본 앱의 사용에는 제한이 없습니다.
+    </li>
+    <li><strong>iOS App Tracking Transparency</strong> — iOS 14.5 이상 디바이스에서는 본 앱 첫 실행 시 추적 허용 여부를 묻는 시스템 다이얼로그가 표시되며, 사용자는 자유롭게 거부할 수 있습니다.</li>
+    <li><strong>푸시 알림 차단</strong> — 운영자 공지 알림은 OS 설정에서 차단할 수 있습니다.
+      <ul>
+        <li>Android: 설정 → 앱 → 공수픽 → 알림 → 허용 끄기</li>
+        <li>iOS: 설정 → 알림 → 공수픽 → 알림 허용 끄기</li>
+      </ul>
+    </li>
+    <li><strong>분석·크래시 보고 비활성화</strong> — Firebase Analytics와 Crashlytics는 본 앱의 표준 옵션으로 활성화되어 있습니다. 비활성화를 원하시면 위 문의처로 요청 시 차기 업데이트에서 사용자별 옵트아웃 메뉴를 제공해드립니다.</li>
+    <li><strong>데이터 열람·삭제</strong> — 사용자가 본 앱에 입력한 모든 데이터는 기기 내부에만 있으므로, 앱의 "내보내기 (CSV)" 또는 "데이터 백업/복구" 메뉴로 자유롭게 열람·이동할 수 있습니다. 앱 삭제 또는 "데이터 전체 삭제" 메뉴 사용 시 기기 내 모든 사용자 입력 데이터가 즉시 영구 삭제됩니다.</li>
+    <li><strong>제3자 SDK가 보유한 비식별 정보의 삭제</strong>는 각 서비스 제공자의 정책에 따라 별도로 요청할 수 있습니다(<a href="https://support.google.com/firebase/answer/9019185" target="_blank" rel="noopener">Firebase 데이터 삭제 가이드</a> 참조).</li>
+  </ul>
+
+  <h2 id="contact">8. 개인정보 보호 책임자 및 문의처</h2>
+  <ul>
+    <li>운영자: 공수픽 개발자</li>
+    <li>이메일: <a href="mailto:kimkho0707@gmail.com">kimkho0707@gmail.com</a></li>
+  </ul>
+  <p>개인정보 침해에 관한 신고나 상담은 아래 기관에도 문의하실 수 있습니다.</p>
+  <ul>
+    <li>개인정보보호위원회: <a href="https://www.pipc.go.kr" target="_blank" rel="noopener">www.pipc.go.kr</a> (전화 국번 없이 182)</li>
+    <li>개인정보침해신고센터: <a href="https://privacy.kisa.or.kr" target="_blank" rel="noopener">privacy.kisa.or.kr</a> (전화 국번 없이 118)</li>
+    <li>대검찰청 사이버수사과: <a href="https://www.spo.go.kr" target="_blank" rel="noopener">www.spo.go.kr</a></li>
+    <li>경찰청 사이버수사국: <a href="https://ecrm.cyber.go.kr" target="_blank" rel="noopener">ecrm.cyber.go.kr</a></li>
+  </ul>
+
+  <hr>
+
+  <h2>변경 이력</h2>
+  <ul>
+    <li><strong>2026-05-09 (제정)</strong> — 최초 공개.</li>
+  </ul>
+
+  <p class="muted">본 방침이 변경되는 경우 본 페이지를 통해 변경 내용과 시행일을 공지합니다.</p>
+</main>
+
+<footer>
+  &copy; 2026 공수픽 · GongsuPick · <a href="mailto:kimkho0707@gmail.com">kimkho0707@gmail.com</a>
+</footer>
+</body>
+</html>

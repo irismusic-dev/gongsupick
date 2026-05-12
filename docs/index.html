@@ -3,223 +3,239 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>공수픽 — GongsuPick</title>
+<title>공수픽 — 공수 계산부터 일감 정보까지</title>
+<meta name="description" content="공수픽 — 현장 작업자, 계장공, 생산직, 일용직을 위한 공수 계산 · 일정 · 일감 정보 앱.">
+<meta property="og:title" content="공수픽 — 공수 계산부터 일감 정보까지">
+<meta property="og:description" content="현장 작업자, 계장공, 생산직, 일용직을 위한 공수 계산 · 일정 · 일감 정보 앱">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.spick.kr/">
 <style>
 :root {
-  --yellow:#F5B400;
-  --navy:#1F2937;
+  --navy:#0A1932;
+  --navy-2:#0F2645;
+  --teal:#00C5D9;
+  --teal-dark:#0AA0B0;
+  --text:#1F2937;
   --muted:#6B7280;
   --bg:#F7F8FA;
+  --card:#FFFFFF;
+  --border:#E5E7EB;
 }
+* { box-sizing: border-box; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
   background: var(--bg);
-  color: var(--navy);
+  color: var(--text);
   margin: 0;
   line-height: 1.6;
 }
-header {
-  background: var(--navy);
+
+/* ---------- Hero ---------- */
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 60%, #0E3A6E 100%);
   color: white;
-  padding: 64px 24px 56px;
+  padding: 72px 24px 96px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
-header h1 { margin: 0 0 8px; font-size: 32px; }
-header p { margin: 0; opacity: .8; }
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0,197,217,.18) 0, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(0,197,217,.12) 0, transparent 45%);
+  pointer-events: none;
+}
+.hero-inner { position: relative; max-width: 720px; margin: 0 auto; }
 .badge {
   display: inline-block;
-  background: var(--yellow);
-  color: var(--navy);
+  background: rgba(0,197,217,.15);
+  color: var(--teal);
   font-weight: 700;
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-radius: 999px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   font-size: 13px;
   letter-spacing: .5px;
+  border: 1px solid rgba(0,197,217,.35);
 }
-main {
-  max-width: 720px;
-  margin: -32px auto 64px;
-  background: white;
-  padding: 32px;
-  border-radius: 16px;
-  box-shadow: 0 12px 32px rgba(0,0,0,.06);
+.hero h1 { margin: 0 0 12px; font-size: 44px; letter-spacing: -.5px; }
+.hero .sub { margin: 0 0 8px; font-size: 22px; color: var(--teal); font-weight: 600; }
+.hero .desc { margin: 16px 0 32px; font-size: 16px; opacity: .85; line-height: 1.7; }
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--teal);
+  color: var(--navy);
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: transform .15s ease, box-shadow .15s ease;
+  box-shadow: 0 6px 20px rgba(0,197,217,.35);
 }
-h2 { margin-top: 32px; font-size: 22px; }
-h3 { margin-top: 20px; font-size: 16px; color: var(--navy); }
-p, li { font-size: 15px; }
-ul { padding-left: 20px; }
-.muted { color: var(--muted); font-size: 13px; }
-hr { border: 0; border-top: 1px solid #e5e7eb; margin: 32px 0; }
-nav.toc {
-  background: var(--bg);
-  padding: 12px 16px;
-  border-radius: 8px;
-  margin-bottom: 24px;
+.cta:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,197,217,.45); }
+.cta-secondary {
+  display: inline-block;
+  color: white;
+  opacity: .7;
+  margin-left: 16px;
+  text-decoration: none;
   font-size: 14px;
 }
-nav.toc a { color: var(--navy); text-decoration: none; margin-right: 12px; }
-nav.toc a:hover { text-decoration: underline; }
-footer {
-  text-align: center;
-  padding: 24px;
-  color: var(--muted);
-  font-size: 13px;
+.cta-secondary:hover { opacity: 1; }
+
+/* ---------- Features ---------- */
+.features {
+  max-width: 960px;
+  margin: -48px auto 64px;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
 }
-a { color: var(--navy); }
-table { border-collapse: collapse; width: 100%; margin: 12px 0; }
-th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
-th { background: var(--bg); font-size: 13px; }
-.pill {
-  display: inline-block;
-  font-size: 11px;
-  background: #FEF3C7;
-  color: #92400E;
-  padding: 2px 8px;
-  border-radius: 999px;
-  margin-left: 6px;
+.feature {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 24px 22px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+  border: 1px solid var(--border);
+}
+.feature .icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--teal) 0%, #0E3A6E 100%);
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+.feature h3 { margin: 0 0 6px; font-size: 16px; color: var(--navy); }
+.feature p { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+/* ---------- Info section ---------- */
+.section {
+  max-width: 720px;
+  margin: 0 auto 48px;
+  padding: 0 24px;
+}
+.section h2 { font-size: 24px; margin: 0 0 16px; color: var(--navy); }
+.section p { font-size: 15px; color: var(--text); }
+.bullets { padding-left: 18px; }
+.bullets li { font-size: 15px; margin-bottom: 6px; }
+
+.who {
+  background: white;
+  border-radius: 14px;
+  padding: 24px 24px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0,0,0,.04);
+}
+
+/* ---------- Footer ---------- */
+footer {
+  background: var(--navy);
+  color: white;
+  padding: 40px 24px 32px;
+  text-align: center;
+}
+footer .links { margin-bottom: 16px; }
+footer .links a {
+  color: var(--teal);
+  text-decoration: none;
+  margin: 0 12px;
+  font-size: 14px;
+}
+footer .links a:hover { text-decoration: underline; }
+footer .copy { opacity: .6; font-size: 13px; margin: 0; }
+
+@media (max-width: 540px) {
+  .hero { padding: 56px 20px 80px; }
+  .hero h1 { font-size: 34px; }
+  .hero .sub { font-size: 18px; }
+  .cta-secondary { display: block; margin: 14px 0 0; }
+  .features { margin-top: -32px; }
 }
 </style>
 </head>
 <body>
-<header>
-  <div class="badge">공수픽 · GongsuPick</div>
-  <h1>개인정보처리방침</h1>
-  <p>현장 작업자를 위한 공수 계산 · 일감 정보 앱</p>
-</header>
 
-<main>
-  <p class="muted">최종 개정일: <strong>2026-05-09</strong> · 시행일: <strong>2026-05-09</strong></p>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="badge">공수픽 · GongsuPick</div>
+    <h1>공수픽</h1>
+    <p class="sub">공수 계산부터 일감 정보까지</p>
+    <p class="desc">
+      현장 작업자, 계장공, 생산직, 일용직을 위한<br>
+      공수 계산 · 일정 · 일감 정보 앱
+    </p>
+    <a class="cta" href="https://play.google.com/store/apps/details?id=kr.hoya.spick" target="_blank" rel="noopener">
+      Google Play에서 다운로드
+    </a>
+    <a class="cta-secondary" href="mailto:kimkho0707@gmail.com">문의하기</a>
+  </div>
+</section>
 
-  <nav class="toc">
-    <a href="#scope">1. 적용범위</a>
-    <a href="#collected">2. 수집 항목</a>
-    <a href="#third-party">3. 제3자 SDK</a>
-    <a href="#storage">4. 저장 위치</a>
-    <a href="#international">5. 국제 이전</a>
-    <a href="#children">6. 아동 보호</a>
-    <a href="#rights">7. 사용자 권리</a>
-    <a href="#contact">8. 문의</a>
-  </nav>
+<section class="features">
+  <div class="feature">
+    <div class="icon">📒</div>
+    <h3>공수 계산</h3>
+    <p>일별 공수·단가·시간을 한 번에 입력하고 월·연간 정산을 자동으로 집계합니다.</p>
+  </div>
+  <div class="feature">
+    <div class="icon">📅</div>
+    <h3>캘린더 일정</h3>
+    <p>공휴일이 자동 표시되는 캘린더에서 일정과 공수를 한눈에 관리합니다.</p>
+  </div>
+  <div class="feature">
+    <div class="icon">📊</div>
+    <h3>엑셀 내보내기</h3>
+    <p>월별 공수 정산을 .xlsx 파일로 내보내 거래처와 즉시 공유할 수 있습니다.</p>
+  </div>
+  <div class="feature">
+    <div class="icon">🔎</div>
+    <h3>일감 정보</h3>
+    <p>네이버 검색과 즐겨찾기 북마크로 현장 일감 정보를 빠르게 확인합니다.</p>
+  </div>
+  <div class="feature">
+    <div class="icon">🏗️</div>
+    <h3>현장·거래처 그룹</h3>
+    <p>현장과 거래처를 그룹으로 분류해서 정산과 통계를 더 깔끔하게 정리합니다.</p>
+  </div>
+  <div class="feature">
+    <div class="icon">💾</div>
+    <h3>안전한 백업</h3>
+    <p>JSON 백업과 복원, 월간 백업 권유 알림으로 소중한 데이터를 안전하게 지킵니다.</p>
+  </div>
+</section>
 
-  <h2 id="scope">1. 적용범위</h2>
-  <p>본 방침은 모바일 애플리케이션 <strong>공수픽 (GongsuPick)</strong>(이하 "본 앱")에 적용됩니다. 본 앱은 사용자가 입력한 모든 공수·일정·세율 데이터를 사용자의 기기 내부에만 저장하며, 운영자(이하 "개발자")가 운영하는 서버로 사용자 입력 데이터를 전송하지 않습니다.</p>
-
-  <h2 id="collected">2. 본 앱이 직접 수집·전송하는 정보</h2>
-  <p>본 앱은 <strong>회원가입·로그인·클라우드 동기화 기능을 제공하지 않습니다.</strong> 사용자가 입력한 공수·일감·일정·세율·그룹 데이터는 모두 사용자의 기기에만 저장되며, 개발자가 운영하는 서버로 전송되지 않습니다.</p>
-  <p>다만 아래 제3자 SDK(섹션 3)를 통해 일부 비식별 정보가 자동 수집·전송됩니다. 모든 통신은 HTTPS(TLS 1.2 이상)로 암호화됩니다.</p>
-
-  <h2 id="third-party">3. 제3자 SDK 및 외부 서비스</h2>
-  <p>본 앱은 아래의 제3자 서비스를 통해 일부 기능을 제공합니다. 각 서비스는 자체 개인정보처리방침에 따라 정보를 수집할 수 있습니다.</p>
-
-  <table>
-    <thead>
-      <tr><th>서비스</th><th>목적</th><th>수집 항목</th><th>방침 링크</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Google AdMob</td>
-        <td>모바일 배너 광고 게재 및 광고 수익화</td>
-        <td>광고 식별자(AAID/IDFA), 일반 IP, 광고 노출·클릭 이벤트, 기기 모델·OS 버전, 앱 버전</td>
-        <td><a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener">정책</a></td>
-      </tr>
-      <tr>
-        <td>Google Firebase Analytics</td>
-        <td>앱 사용 통계 (앱 시작, 화면 진입, 주요 사용자 행동 이벤트)</td>
-        <td>앱 인스턴스 ID(랜덤 발급), 화면 이름, 이벤트명·파라미터(공수 입력 여부 등 비식별 정보), 기기 종류·OS 버전, 대략 위치(국가/지역, IP 기반)</td>
-        <td><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">정책</a></td>
-      </tr>
-      <tr>
-        <td>Google Firebase Crashlytics</td>
-        <td>앱 크래시·예외 자동 보고로 안정성 개선</td>
-        <td>크래시 발생 시 — 스택 트레이스, 기기 모델·OS 버전, 앱 버전, 충돌 시점 직전의 화면 이동 흔적(breadcrumb), 무작위로 부여된 설치 ID. 사용자가 입력한 공수·일정 등 콘텐츠는 포함되지 않습니다.</td>
-        <td><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">정책</a></td>
-      </tr>
-      <tr>
-        <td>Google Firebase Cloud Messaging (FCM)</td>
-        <td>운영자의 공지·업데이트 알림 푸시 전송</td>
-        <td>FCM 등록 토큰(랜덤 발급, 푸시 도달용), 토픽 구독 정보(<code>all_users</code>). 메시지 본문은 운영자 콘솔에서만 작성되어 사용자 디바이스로 전달됩니다.</td>
-        <td><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">정책</a></td>
-      </tr>
-      <tr>
-        <td>Naver Search OpenAPI<span class="pill">선택</span></td>
-        <td>네이버 카페 일감 글 검색(사용자가 일감 메뉴에 직접 추가한 검색어에 한함)</td>
-        <td>사용자가 입력한 검색어 문자열, 본 앱의 API 클라이언트 키. 사용자 식별 정보는 전송하지 않습니다.</td>
-        <td><a href="https://developers.naver.com/products/service-api/search/search.md" target="_blank" rel="noopener">정책</a></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p>본 앱은 위 서비스 외에 사용자의 개인정보를 수집·이용·제3자 제공하지 않습니다. 본 앱은 회원가입, 로그인, 클라우드 동기화, 인앱 결제(IAP)를 사용하지 않습니다.</p>
-
-  <h2 id="storage">4. 데이터 저장 위치 및 보유 기간</h2>
-  <ul>
-    <li><strong>공수·일정·세율·그룹 데이터</strong>: 사용자 기기 내 SQLite 데이터베이스(앱 전용 영역).</li>
-    <li><strong>설정 값</strong>: 사용자 기기 내 SharedPreferences(앱 전용 영역).</li>
-    <li><strong>일감 캐시(제목·링크)</strong>: 30일 또는 200건 한도 자동 정리, 사용자 기기 내 저장.</li>
-    <li><strong>보유 기간</strong>: 사용자가 "데이터 전체 삭제" 메뉴를 사용하거나, 앱을 삭제하면 기기 내 모든 데이터가 즉시 영구 삭제됩니다.</li>
-    <li><strong>백업 파일</strong>: 사용자가 "데이터 백업/복구" 메뉴에서 직접 생성한 JSON 파일은 사용자가 선택한 위치(메일·드라이브 등)에 저장되며, 본 앱 또는 개발자는 해당 파일에 접근하지 않습니다.</li>
-  </ul>
-
-  <h2 id="international">5. 국외 데이터 이전</h2>
-  <p>위 제3자 서비스(Google · Naver) 중 Google이 제공하는 서비스(AdMob, Firebase Analytics·Crashlytics·Cloud Messaging)는 미국을 비롯한 해외 데이터 센터에서 정보를 처리·저장합니다. 본 앱을 사용함으로써 사용자는 해당 정보가 국외로 이전되어 처리될 수 있다는 점에 동의하는 것으로 간주됩니다. 데이터는 모두 HTTPS로 암호화 전송되며, 각 서비스 제공자의 보호 정책 및 표준 계약 조항(Standard Contractual Clauses)에 따라 보호됩니다.</p>
-  <ul>
-    <li>이전 항목: 섹션 3의 표에 명시된 비식별 정보 일체</li>
-    <li>이전 국가: 미국(주 처리 국가) 등 Google·Naver의 해외 데이터 센터</li>
-    <li>이전 시기: 사용자가 본 앱을 실행하는 동안 자동으로 발생</li>
-    <li>이전 받는 자: Google LLC, Naver Corporation</li>
-    <li>이전 받는 자의 보유·이용 기간: 각 서비스 제공자의 정책에 따름(통상 14개월~26개월)</li>
-  </ul>
-
-  <h2 id="children">6. 아동 개인정보 보호</h2>
-  <p>본 앱은 만 14세 미만 아동을 주요 사용자로 하지 않으며, 의도적으로 아동의 개인정보를 수집하지 않습니다. 본 앱은 Google Play의 콘텐츠 등급 기준상 일반 사용자(전체 이용가)를 대상으로 하나, 아동의 직접 사용을 가정한 추가 보호조치(연령 인증, 부모 동의 등)는 적용하지 않습니다. 만 14세 미만 아동이 본 앱을 사용한 사실을 보호자가 인지한 경우, 즉시 앱 삭제 또는 "데이터 전체 삭제" 메뉴 사용을 권장하며, 위 문의처로 연락 시 신속히 조치합니다.</p>
-
-  <h2 id="rights">7. 사용자 권리</h2>
-  <ul>
-    <li><strong>광고 식별자 재설정·추적 거부</strong>는 OS 설정에서 언제든지 가능합니다.
-      <ul>
-        <li>Android: 설정 → Google → 광고 → 광고 ID 삭제</li>
-        <li>iOS 14.5+: 설정 → 개인 정보 보호 및 보안 → Tracking → 앱이 추적을 요청하도록 허용 끄기</li>
-      </ul>
-      거부 시 비개인화 광고가 표시되며, 본 앱의 사용에는 제한이 없습니다.
-    </li>
-    <li><strong>iOS App Tracking Transparency</strong> — iOS 14.5 이상 디바이스에서는 본 앱 첫 실행 시 추적 허용 여부를 묻는 시스템 다이얼로그가 표시되며, 사용자는 자유롭게 거부할 수 있습니다.</li>
-    <li><strong>푸시 알림 차단</strong> — 운영자 공지 알림은 OS 설정에서 차단할 수 있습니다.
-      <ul>
-        <li>Android: 설정 → 앱 → 공수픽 → 알림 → 허용 끄기</li>
-        <li>iOS: 설정 → 알림 → 공수픽 → 알림 허용 끄기</li>
-      </ul>
-    </li>
-    <li><strong>분석·크래시 보고 비활성화</strong> — Firebase Analytics와 Crashlytics는 본 앱의 표준 옵션으로 활성화되어 있습니다. 비활성화를 원하시면 위 문의처로 요청 시 차기 업데이트에서 사용자별 옵트아웃 메뉴를 제공해드립니다.</li>
-    <li><strong>데이터 열람·삭제</strong> — 사용자가 본 앱에 입력한 모든 데이터는 기기 내부에만 있으므로, 앱의 "내보내기 (CSV)" 또는 "데이터 백업/복구" 메뉴로 자유롭게 열람·이동할 수 있습니다. 앱 삭제 또는 "데이터 전체 삭제" 메뉴 사용 시 기기 내 모든 사용자 입력 데이터가 즉시 영구 삭제됩니다.</li>
-    <li><strong>제3자 SDK가 보유한 비식별 정보의 삭제</strong>는 각 서비스 제공자의 정책에 따라 별도로 요청할 수 있습니다(<a href="https://support.google.com/firebase/answer/9019185" target="_blank" rel="noopener">Firebase 데이터 삭제 가이드</a> 참조).</li>
-  </ul>
-
-  <h2 id="contact">8. 개인정보 보호 책임자 및 문의처</h2>
-  <ul>
-    <li>운영자: 공수픽 개발자</li>
-    <li>이메일: <a href="mailto:kimkho0707@gmail.com">kimkho0707@gmail.com</a></li>
-  </ul>
-  <p>개인정보 침해에 관한 신고나 상담은 아래 기관에도 문의하실 수 있습니다.</p>
-  <ul>
-    <li>개인정보보호위원회: <a href="https://www.pipc.go.kr" target="_blank" rel="noopener">www.pipc.go.kr</a> (전화 국번 없이 182)</li>
-    <li>개인정보침해신고센터: <a href="https://privacy.kisa.or.kr" target="_blank" rel="noopener">privacy.kisa.or.kr</a> (전화 국번 없이 118)</li>
-    <li>대검찰청 사이버수사과: <a href="https://www.spo.go.kr" target="_blank" rel="noopener">www.spo.go.kr</a></li>
-    <li>경찰청 사이버수사국: <a href="https://ecrm.cyber.go.kr" target="_blank" rel="noopener">ecrm.cyber.go.kr</a></li>
-  </ul>
-
-  <hr>
-
-  <h2>변경 이력</h2>
-  <ul>
-    <li><strong>2026-05-09 (제정)</strong> — 최초 공개.</li>
-  </ul>
-
-  <p class="muted">본 방침이 변경되는 경우 본 페이지를 통해 변경 내용과 시행일을 공지합니다.</p>
-</main>
+<section class="section">
+  <div class="who">
+    <h2>누구를 위한 앱인가요?</h2>
+    <ul class="bullets">
+      <li>매일 공수를 기록하고 월말마다 정산해야 하는 <strong>현장 작업자</strong></li>
+      <li>여러 거래처·현장을 동시에 관리하는 <strong>계장공·생산직</strong></li>
+      <li>단가 변동이 잦아 자동 계산이 필요한 <strong>일용직 종사자</strong></li>
+    </ul>
+    <p style="margin-top:16px;">
+      서버 없이 <strong>기기 내부에만</strong> 데이터를 저장합니다. 회원가입도, 클라우드 동기화도 없습니다.
+      필요할 때 JSON 백업 파일을 직접 만들고 보관하실 수 있습니다.
+    </p>
+  </div>
+</section>
 
 <footer>
-  &copy; 2026 공수픽 · GongsuPick · <a href="mailto:kimkho0707@gmail.com">kimkho0707@gmail.com</a>
+  <div class="links">
+    <a href="/privacy.html">개인정보처리방침</a>
+    <a href="mailto:kimkho0707@gmail.com">문의 메일</a>
+  </div>
+  <p class="copy">&copy; 2026 공수픽 · GongsuPick</p>
 </footer>
+
 </body>
 </html>
