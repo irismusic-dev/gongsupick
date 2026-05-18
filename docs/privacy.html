@@ -98,7 +98,7 @@ th { background: var(--bg); font-size: 13px; }
 
 <main>
   <a href="/" class="back-link">← 공수픽 소개로 돌아가기</a>
-  <p class="muted">최종 개정일: <strong>2026-05-09</strong> · 시행일: <strong>2026-05-09</strong></p>
+  <p class="muted">최종 개정일: <strong>2026-05-19</strong> · 시행일: <strong>2026-05-19</strong></p>
 
   <nav class="toc">
     <a href="#scope">1. 적용범위</a>
@@ -117,6 +117,7 @@ th { background: var(--bg); font-size: 13px; }
   <h2 id="collected">2. 본 앱이 직접 수집·전송하는 정보</h2>
   <p>본 앱은 <strong>회원가입·로그인·클라우드 동기화 기능을 제공하지 않습니다.</strong> 사용자가 입력한 공수·일감·일정·세율·그룹 데이터는 모두 사용자의 기기에만 저장되며, 개발자가 운영하는 서버로 전송되지 않습니다.</p>
   <p>다만 아래 제3자 SDK(섹션 3)를 통해 일부 비식별 정보가 자동 수집·전송됩니다. 모든 통신은 HTTPS(TLS 1.2 이상)로 암호화됩니다.</p>
+  <p><strong>일정 로컬 알림(v1.3.0~)</strong> — 사용자가 일정마다 선택할 수 있는 "10분 전 / 30분 전 / 1시간 전 / 1일 전" 알림은 단말 자체의 알람 시스템(Android <code>AlarmManager</code>, iOS <code>UNUserNotificationCenter</code>)을 통해 기기 내부에서만 예약·발송됩니다. 알림 콘텐츠·예약 시각은 개발자 서버나 외부로 전송되지 않으며, 별도로 수집되지도 않습니다. 정확한 시각 발송을 위해 Android 13 이상에서는 <code>POST_NOTIFICATIONS</code>·<code>USE_EXACT_ALARM</code> 권한을, Android 12에서는 <code>SCHEDULE_EXACT_ALARM</code> 권한을 사용합니다. 권한 거부 시에도 앱은 정상 동작하며, 알림이 최대 15분 지연될 수 있습니다.</p>
 
   <h2 id="third-party">3. 제3자 SDK 및 외부 서비스</h2>
   <p>본 앱은 아래의 제3자 서비스를 통해 일부 기능을 제공합니다. 각 서비스는 자체 개인정보처리방침에 따라 정보를 수집할 수 있습니다.</p>
@@ -193,10 +194,15 @@ th { background: var(--bg); font-size: 13px; }
       거부 시 비개인화 광고가 표시되며, 본 앱의 사용에는 제한이 없습니다.
     </li>
     <li><strong>iOS App Tracking Transparency</strong> — iOS 14.5 이상 디바이스에서는 본 앱 첫 실행 시 추적 허용 여부를 묻는 시스템 다이얼로그가 표시되며, 사용자는 자유롭게 거부할 수 있습니다.</li>
-    <li><strong>푸시 알림 차단</strong> — 운영자 공지 알림은 OS 설정에서 차단할 수 있습니다.
+    <li><strong>알림 차단</strong> — 공수픽의 알림은 두 가지이며, 모두 OS 설정 또는 앱 내에서 끌 수 있습니다.
       <ul>
-        <li>Android: 설정 → 앱 → 공수픽 → 알림 → 허용 끄기</li>
-        <li>iOS: 설정 → 알림 → 공수픽 → 알림 허용 끄기</li>
+        <li><em>운영자 공지 푸시(FCM)</em> 및 <em>일정 로컬 알림</em> 전체 차단:
+          <ul>
+            <li>Android: 설정 → 앱 → 공수픽 → 알림 → 허용 끄기</li>
+            <li>iOS: 설정 → 알림 → 공수픽 → 알림 허용 끄기</li>
+          </ul>
+        </li>
+        <li><em>일정 로컬 알림만 개별 차단</em>: 앱 내 일정 추가/수정 시트의 "알림" 토글을 끄거나, 더보기 → 환경설정 → "일정 알림 기본 시간"에서 기본 동작을 조정합니다.</li>
       </ul>
     </li>
     <li><strong>분석·크래시 보고 비활성화</strong> — Firebase Analytics와 Crashlytics는 본 앱의 표준 옵션으로 활성화되어 있습니다. 비활성화를 원하시면 위 문의처로 요청 시 차기 업데이트에서 사용자별 옵트아웃 메뉴를 제공해드립니다.</li>
@@ -221,6 +227,7 @@ th { background: var(--bg); font-size: 13px; }
 
   <h2>변경 이력</h2>
   <ul>
+    <li><strong>2026-05-19 (v1.3.0)</strong> — 일정 로컬 알림 기능 추가에 따른 권한·동작 설명 보강(섹션 2). 알림 차단 안내를 FCM 푸시와 로컬 알림으로 구분(섹션 7).</li>
     <li><strong>2026-05-09 (제정)</strong> — 최초 공개.</li>
   </ul>
 
